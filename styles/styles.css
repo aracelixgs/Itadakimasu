@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "shangai";
+  src:url("../fonts/shangai.ttf") format("truetype")
+}
+
 body {
     margin: 0;
     background-color: lightblue;
@@ -23,10 +28,12 @@ body {
   }
 
   #start-btn, #restart-btn {
-    background-color: lightcoral;
-    color: crimson;
+
+    background-color: rgb(179, 0, 0);
+    color: whitesmoke;
     padding: 20px;
-    font-size: 20px;
+    font-size: 40px;
+    font-family: "shangai";
     margin-top: 40px;
     border-radius: 10px; 
   }

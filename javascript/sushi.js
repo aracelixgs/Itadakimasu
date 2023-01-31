@@ -3,25 +3,18 @@ class Sushi {
         constructor(xPos) {
         
             this.x = xPos;
-            this.y = 0;
-            this.w = 120;
-            this.h = 120;
+            this.y = -50;
+            this.w = 60;
+            this.h = 60;
             this.speed = 2;
 
-            this.sushiImg = new Image()
-            this.sushiImg.src = "./images/sushi.png"
+            this.image = new Image()
+            this.image.src = "./images/sushi.png"
 
-            this.ramenImg = new Image()
-            this.ramenImg.src = "./images/ramen.png"
-
-            this.foodElements = [this.sushiImg, this.ramenImg]
         }
         
         drawSushi = () => {
-            for(let i=0; i<=this.foodElements.length; i++) {
-            ctx.drawImage(this.foodElements[i], this.x, this.y, this.w, this.h)
-            }
-            this.drawSushi(this.foodElements)
+            ctx.drawImage(this.image, this.x, this.y, this.w, this.h)
         }
         
         moveSushi = () => {
@@ -29,3 +22,52 @@ class Sushi {
         }
         
         }
+
+class Ramen {
+    constructor(xPos) {
+        
+        this.x = xPos;
+        this.y = -70;
+        this.w = 80;
+        this.h = 80;
+        this.speed = 4;
+
+        this.image = new Image()
+        this.image.src = "./images/ramen.png"
+
+    }
+    
+    drawRamen = () => {
+        ctx.drawImage(this.image, this.x, this.y, this.w, this.h)
+    }
+    
+    moveRamen = () => {
+        this.y +=this.speed
+    }
+    
+    }
+
+class LuckyCat {
+    constructor(xPos) {
+        
+        this.x = xPos;
+        this.y = canvas.height;
+        this.w = 120;
+        this.h = 120;
+        this.speed = 4;
+
+        this.image = new Image()
+        this.image.src = "./images/luckycat.png"
+
+    }
+    
+    drawLuckyCat = () => {
+        ctx.drawImage(this.image, this.x, this.y, this.w, this.h)
+    }
+    
+    moveLuckyCat = () => {
+        this.y -=this.speed
+        this.x +=this.speed
+    }
+    
+    }
