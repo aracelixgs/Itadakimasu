@@ -40,6 +40,8 @@ class Game {
         this.soundSumoDemonio.volume = 0.1
         this.soundDemonioDisparo = new Audio("./sounds/punch.mp3")
         this.soundDemonioDisparo.volume = 0.1
+        this.soundLive = new Audio("./sounds/live.mp3")
+        this.soundLive.volume = 0.1
 
         
 
@@ -48,7 +50,7 @@ class Game {
         this.isGameOn = true;
 
         this.score = 0;
-        this.lives = 0;
+        this.lives = 3;
 
         this.frames = 1;
     
@@ -80,7 +82,7 @@ class Game {
     }
     disparoSumo = () => {
         if(this.puedeDisparar){
-            let newDisparo = new Disparo(this.sumo.x, this.sumo.y)
+            let newDisparo = new Disparo(this.sumo.x, this.sumo.y+(this.sumo.h/2))
             this.disparoArr.push(newDisparo);
             this.puedeDisparar = false;
             setTimeout(()=>{
@@ -92,7 +94,7 @@ class Game {
         }
     }
     luckyCatAparece = () => {
-        if(this.luckyCatArr.length === 0 || this.frames % 120 === 0) {
+        if(this.luckyCatArr.length === 0 || this.frames % 500 === 0) {
             let randomPosXluckyCat = Math.random() * (canvas.width-100)
             let randomluckyCat = new LuckyCat(randomPosXluckyCat)
             this.luckyCatArr.push(randomluckyCat)
@@ -126,9 +128,6 @@ class Game {
             this.demonioArr.splice(index, 1)
             this.score -=10
             this.soundSumoDemonio.play()
-            if(this.score <= 0) {
-                this.gameOver()
-            }
          }
           })
     }
@@ -168,12 +167,28 @@ class Game {
                 eachDemonio.y < eachDisparo.y + eachDisparo.h &&
                 eachDemonio.h + eachDemonio.y > eachDisparo.y
               ) {
+                this.demonio.image.src = "./images/humo.png"
                 this.demonioArr.splice(indexDemonio, 1)
                 this.disparoArr.splice(indexDisparo, 1)
                 this.soundDemonioDisparo.play()
+                
              }
               })
             })
+    }
+    colisionSumoLuckyCat = () => {
+        this.luckyCatArr.forEach ((eachluckyCat, index) => {
+        if (
+            eachluckyCat.x < this.sumo.x + this.sumo.w &&
+            eachluckyCat.x + eachluckyCat.w > this.sumo.x &&
+            eachluckyCat.y < this.sumo.y + this.sumo.h &&
+            eachluckyCat.h + eachluckyCat.y > this.sumo.y
+          ) {
+            this.luckyCatArr.splice(index, 1)
+            this.lives +=1
+            this.soundLive.play()
+            }
+          })
     }
 
     // DIBUJADO DE ELEMENTOS ADICIONALES Y LIMPIEZA CANVAS
@@ -188,6 +203,13 @@ class Game {
         ctx.fillText('Lives: ' + this.lives, 50, 100)
         ctx.fillStyle = "#000000"
     }
+    
+    drawBackground = ()  => {
+        ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height)
+    }
+    clearCanvas = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+    }
     gameOver = () => {
         this.soundGameOver.play()
         this.soundGame.pause()
@@ -195,13 +217,17 @@ class Game {
         canvas.style.display = "none";
         gameoverScreenDOM.style.display = "flex";
     }
-    drawBackground = ()  => {
-        ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height)
+    scoreAndLife = () => {
+        if(this.score <= 0 && this.lives === 0) {
+            this.gameOver()
+        }
+        if(this.score < 0) {
+            this.lives -=1;
+            this.score = 0;
+        }
+        
     }
-    clearCanvas =() => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-    }
-    
+   
 
 
     // FUNCIÓN DE RECURSIÓN
@@ -209,6 +235,7 @@ class Game {
     gameLoop = () => {
         this.frames++
         this.soundGame.play()
+        this.scoreAndLife()
 
         // LIMPAR CANVAS
         this.clearCanvas()
@@ -250,6 +277,7 @@ class Game {
         this.colisionSumoDemonio()
         this.colisionSumoFood()
         this.colisionDemonioDisparo()
+        this.colisionSumoLuckyCat()
         
 
 

@@ -52,8 +52,8 @@ class LuckyCat {
         
         this.x = xPos;
         this.y = canvas.height;
-        this.w = 120;
-        this.h = 120;
+        this.w = 80;
+        this.h = 80;
         this.speed = 4;
 
         this.image = new Image()
@@ -67,7 +67,6 @@ class LuckyCat {
     
     moveLuckyCat = () => {
         this.y -=this.speed
-        this.x +=this.speed
     }
     
     }
