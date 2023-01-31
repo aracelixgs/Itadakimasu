@@ -88,10 +88,12 @@ class Game {
             setTimeout(()=>{
                 this.puedeDisparar = true;
             },500);
-            //setTimeout(() =>{
-                //this.sumo.image.src = "./images/sumodisparo.png"
-           // },100)
+            setTimeout(() =>{
+                this.sumo.image.src = "./images/sumo.png"
+            },100)
+            
         }
+        this.sumo.image.src = "./images/sumodisparo.png"
     }
     luckyCatAparece = () => {
         if(this.luckyCatArr.length === 0 || this.frames % 500 === 0) {
