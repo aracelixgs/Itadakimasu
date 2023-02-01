@@ -175,21 +175,17 @@ class Game {
         
         this.disparoArr.forEach((eachDisparo) => {
         this.demonioArr.forEach ((eachDemonio, indexDemonio) => {
-            let contadorDisparos=0;
             if (
                 eachDisparo.x < eachDemonio.x + eachDemonio.w &&
                 eachDisparo.x + eachDisparo.w > eachDemonio.x &&
                 eachDisparo.y < eachDemonio.y + eachDemonio.h &&
                 eachDisparo.h + eachDisparo.y > eachDemonio.y
               ) {
-                contadorDisparos +=1;
-                
                 this.demonioArr.splice(indexDemonio, 1)
                 eachDisparo.image.src = "./images/humo.png"
                 eachDisparo.w = 120;
                 eachDisparo.h = 120;
-                this.soundDemonioDisparo.play()
-                console.log(contadorDisparos) 
+                this.soundDemonioDisparo.play() 
              }
               
               })
@@ -197,27 +193,32 @@ class Game {
          
     }
     colisionBigDemonioDisparo = () =>{
-        this.bigDemonioArr.forEach ((eachBigDemonio) => {
+        this.bigDemonioArr.forEach ((eachBigDemonio, indexBigDemonio) => {
         this.disparoArr.forEach((eachDisparo, indexDisparo) => {
-            //let contadorDisparos = 0;
             if (
                 eachBigDemonio.x < eachDisparo.x + eachDisparo.w &&
                 eachBigDemonio.x + eachBigDemonio.w > eachDisparo.x &&
                 eachBigDemonio.y < eachDisparo.y + eachDisparo.h &&
                 eachBigDemonio.h + eachBigDemonio.y > eachDisparo.y
               ) {
-                //contadorDisparos +=1;
-                this.disparoArr.splice(indexDisparo, 1)
-                eachBigDemonio.image.src = "./images/demonioverde.png"
                 this.soundDemonioDisparo.play() 
-               
+                eachBigDemonio.live--;
+                if(eachBigDemonio.live === 2) {
+                    eachBigDemonio.image.src = "./images/demonionaranja.png"
+                    this.disparoArr.splice(indexDisparo, 1)
+                } if(eachBigDemonio.live === 1) {
+                    eachBigDemonio.image.src = "./images/demonioverde.png"
+                    this.disparoArr.splice(indexDisparo, 1)
+                } if(eachBigDemonio.live <= 0) {
+                    this.bigDemonioArr.splice(indexBigDemonio, 1)
+                    eachDisparo.image.src = "./images/humo.png"
+                eachDisparo.w = 120;
+                eachDisparo.h = 120;
+                } 
               }
-               // if(contadorDisparos === 3) {
-              //  this.bigDemonioArr.splice(indexBigDemonio, 1)
-           //  }
-           //  console.log(contadorDisparos)
+            
            })
-            })
+      })
             
     }
     colisionSumoLuckyCat = () => {

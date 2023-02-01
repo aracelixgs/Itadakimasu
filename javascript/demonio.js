@@ -40,6 +40,7 @@ class Demonio {
             this.speed = 1;
             this.image = new Image()
             this.image.src = "./images/demonio.png"
+            this.live = 3;
         }
         
         drawBigDemonio = () => {
