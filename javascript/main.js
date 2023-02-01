@@ -19,6 +19,7 @@ let game;
 const startGame = () => {
 
     startScreenDOM.style.display = "none";
+    gameoverScreenDOM.style.display = "none";
     canvas.style.display = "block";
 
     game = new Game()

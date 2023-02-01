@@ -175,24 +175,26 @@ class Game {
         
         this.disparoArr.forEach((eachDisparo) => {
         this.demonioArr.forEach ((eachDemonio, indexDemonio) => {
-            //let contadorDisparos=0;
+            let contadorDisparos=0;
             if (
                 eachDisparo.x < eachDemonio.x + eachDemonio.w &&
                 eachDisparo.x + eachDisparo.w > eachDemonio.x &&
                 eachDisparo.y < eachDemonio.y + eachDemonio.h &&
                 eachDisparo.h + eachDisparo.y > eachDemonio.y
               ) {
-                //contadorDisparos +=1;
-                //console.log(contadorDisparos)
+                contadorDisparos +=1;
+                
                 this.demonioArr.splice(indexDemonio, 1)
                 eachDisparo.image.src = "./images/humo.png"
                 eachDisparo.w = 120;
                 eachDisparo.h = 120;
                 this.soundDemonioDisparo.play()
+                console.log(contadorDisparos) 
              }
+              
               })
             })
-            
+         
     }
     colisionBigDemonioDisparo = () =>{
         this.bigDemonioArr.forEach ((eachBigDemonio) => {
