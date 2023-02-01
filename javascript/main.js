@@ -30,31 +30,31 @@ const startGame = () => {
     game.gameLoop()
 }
 const sumoMovement = (event) => {
-    if(event.code === "Numpad6") {
+    if(event.code === "KeyD") {
         game.sumo.moveRightSumo()
     }
-    if(event.code === "Numpad4") {
+    if(event.code === "KeyA") {
         game.sumo.moveLeftSumo()
     }
-    if(event.code === "Numpad8") {
+    if(event.code === "KeyW") {
         game.sumo.moveUpSumo()
     }
-    if(event.code === "Numpad2") {
+    if(event.code === "KeyS") {
         game.sumo.moveDownSumo()
     }
-    if(event.code === "Numpad3") {
+    if(event.code === "KeyX") {
         game.sumo.moveDownRight()
     }
-    if(event.code === "Numpad1") {
+    if(event.code === "KeyZ") {
         game.sumo.moveDownLeft()
     }
-    if(event.code === "Numpad9") {
+    if(event.code === "KeyE") {
         game.sumo.moveUpRight()
     }
-    if(event.code === "Numpad7") {
+    if(event.code === "KeyQ") {
         game.sumo.moveUpLeft()
     }
-    if(event.code === "Numpad5") {
+    if(event.code === "Space") {
         game.disparoSumo()
     }
 }

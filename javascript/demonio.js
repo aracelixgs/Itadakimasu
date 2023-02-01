@@ -18,15 +18,15 @@ class Demonio {
     
     moveDemonio = () => {
         this.x -=this.speed
+        // Enemy move in the Y axis
+       // if ( this.y < sumo.y ) {
+        //  this.y = this.y + this.speed;
+       // } else if ( this.y > sumo.y ) {
+      //    this.y = this.y - this.speed;
+      //  }
+    };
     }
-    deadDemonio = () => {
-        this.image.src ="./images/humo.png";
-        this.isDemonioDead = true;
-        setTimeout(() => {
-            this.x = -100;
-        },800)
-        }
-    }
+  
     
 
     class BigDemonio {

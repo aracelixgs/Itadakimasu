@@ -88,7 +88,6 @@ class Game {
             let randomPosY = Math.random() * (canvas.height-this.bigDemonio.h)
             let randomBigDemonio = new BigDemonio(randomPosY)
             this.bigDemonioArr.push(randomBigDemonio)
-
         }
     }
     disparoSumo = () => {
@@ -107,7 +106,7 @@ class Game {
         this.sumo.image.src = "./images/sumodisparo.png"
     }
     luckyCatAparece = () => {
-        if(this.luckyCatArr.length === 0 || this.frames % 500 === 0) {
+        if(this.luckyCatArr.length === 0 || this.frames % 950 === 0) {
             let randomPosXluckyCat = Math.random() * (canvas.width-100)
             let randomluckyCat = new LuckyCat(randomPosXluckyCat)
             this.luckyCatArr.push(randomluckyCat)
@@ -141,6 +140,22 @@ class Game {
             this.demonioArr.splice(index, 1)
             this.score -=20
             this.soundSumoDemonio.play()
+         }
+          })
+    }
+    colisionesBigDemonio = () => {
+        this.bigDemonioArr.forEach ((eachBigDemonio, index) => {
+        if (
+            eachBigDemonio.x < this.sumo.x + this.sumo.w &&
+            eachBigDemonio.x + eachBigDemonio.w > this.sumo.x &&
+            eachBigDemonio.y < this.sumo.y + this.sumo.h &&
+            eachBigDemonio.h + eachBigDemonio.y > this.sumo.y
+          ) {
+            this.bigDemonioArr.splice(index, 1)
+            this.lives -=1
+            this.soundSumoDemonio.play()
+         } else if(eachBigDemonio.x === 0) {
+            this.lives -=1
          }
           })
     }
@@ -236,6 +251,8 @@ class Game {
           })
     }
 
+    // AUMENTO DE VELOCIDAD
+
     // DIBUJADO DE ELEMENTOS ADICIONALES Y LIMPIEZA CANVAS
 
     drawScore = () => {
@@ -247,8 +264,7 @@ class Game {
         ctx.font = "30px shangai";
         ctx.fillText('Lives: ' + this.lives, 50, 100)
         ctx.fillStyle = "#000000"
-    }
-    
+    } 
     drawBackground = ()  => {
         ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height)
     }
@@ -263,15 +279,15 @@ class Game {
         gameoverScreenDOM.style.display = "flex";
     }
     scoreAndLife = () => {
-        if(this.score <= 0 && this.lives === 0) {
-            this.gameOver()
-        }
         if(this.score < 0) {
             this.lives -=1;
             this.score = 0;
         }
-        
-    }
+        if(this.lives < 0) {
+            this.gameOver()
+        }
+    }  
+    
    
 
 
@@ -324,6 +340,7 @@ class Game {
         
         // COLISIONES
         this.colisionSumoDemonio()
+        this.colisionesBigDemonio()
         this.colisionSumoFood()
         this.colisionDemonioDisparo()
         this.colisionBigDemonioDisparo()
