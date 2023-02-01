@@ -25,6 +25,9 @@ class Game {
         this.demonio = new Demonio()
         this.demonioArr = [];
 
+        this.bigDemonio = new BigDemonio()
+        this.bigDemonioArr = [];
+
         this.luckyCat = new LuckyCat()
         this.luckyCatArr = [];
 
@@ -80,6 +83,14 @@ class Game {
 
         }
     }
+    bigDemonioAparece = ()=>{
+        if(this.bigDemonioArr.length === 0 || this.frames % 600 === 0) {
+            let randomPosY = Math.random() * (canvas.height-this.bigDemonio.h)
+            let randomBigDemonio = new BigDemonio(randomPosY)
+            this.bigDemonioArr.push(randomBigDemonio)
+
+        }
+    }
     disparoSumo = () => {
         if(this.puedeDisparar){
             let newDisparo = new Disparo(this.sumo.x, this.sumo.y+(this.sumo.h/2))
@@ -128,7 +139,7 @@ class Game {
             eachDemonio.h + eachDemonio.y > this.sumo.y
           ) {
             this.demonioArr.splice(index, 1)
-            this.score -=10
+            this.score -=20
             this.soundSumoDemonio.play()
          }
           })
@@ -161,22 +172,51 @@ class Game {
     
     }
     colisionDemonioDisparo = () =>{
+        
+        this.disparoArr.forEach((eachDisparo) => {
         this.demonioArr.forEach ((eachDemonio, indexDemonio) => {
-        this.disparoArr.forEach((eachDisparo, indexDisparo) => {
+            //let contadorDisparos=0;
             if (
-                eachDemonio.x < eachDisparo.x + eachDisparo.w &&
-                eachDemonio.x + eachDemonio.w > eachDisparo.x &&
-                eachDemonio.y < eachDisparo.y + eachDisparo.h &&
-                eachDemonio.h + eachDemonio.y > eachDisparo.y
+                eachDisparo.x < eachDemonio.x + eachDemonio.w &&
+                eachDisparo.x + eachDisparo.w > eachDemonio.x &&
+                eachDisparo.y < eachDemonio.y + eachDemonio.h &&
+                eachDisparo.h + eachDisparo.y > eachDemonio.y
               ) {
-                this.demonio.image.src = "./images/humo.png"
+                //contadorDisparos +=1;
+                //console.log(contadorDisparos)
                 this.demonioArr.splice(indexDemonio, 1)
-                this.disparoArr.splice(indexDisparo, 1)
+                eachDisparo.image.src = "./images/humo.png"
+                eachDisparo.w = 120;
+                eachDisparo.h = 120;
                 this.soundDemonioDisparo.play()
-                
              }
               })
             })
+            
+    }
+    colisionBigDemonioDisparo = () =>{
+        this.bigDemonioArr.forEach ((eachBigDemonio) => {
+        this.disparoArr.forEach((eachDisparo, indexDisparo) => {
+            //let contadorDisparos = 0;
+            if (
+                eachBigDemonio.x < eachDisparo.x + eachDisparo.w &&
+                eachBigDemonio.x + eachBigDemonio.w > eachDisparo.x &&
+                eachBigDemonio.y < eachDisparo.y + eachDisparo.h &&
+                eachBigDemonio.h + eachBigDemonio.y > eachDisparo.y
+              ) {
+                //contadorDisparos +=1;
+                this.disparoArr.splice(indexDisparo, 1)
+                eachBigDemonio.image.src = "./images/demonioverde.png"
+                this.soundDemonioDisparo.play() 
+               
+              }
+               // if(contadorDisparos === 3) {
+              //  this.bigDemonioArr.splice(indexBigDemonio, 1)
+           //  }
+           //  console.log(contadorDisparos)
+           })
+            })
+            
     }
     colisionSumoLuckyCat = () => {
         this.luckyCatArr.forEach ((eachluckyCat, index) => {
@@ -262,6 +302,10 @@ class Game {
         this.demonioArr.forEach((eachDemonio) => {
             eachDemonio.moveDemonio()
         })
+        this.bigDemonioAparece()
+        this.bigDemonioArr.forEach((eachBigDemonio) => {
+            eachBigDemonio.moveBigDemonio()
+        })
         this.removeDemonios()
 
         // -------- Disparos --------- //
@@ -279,6 +323,7 @@ class Game {
         this.colisionSumoDemonio()
         this.colisionSumoFood()
         this.colisionDemonioDisparo()
+        this.colisionBigDemonioDisparo()
         this.colisionSumoLuckyCat()
         
 
@@ -297,6 +342,9 @@ class Game {
         })
         this.demonioArr.forEach((eachDemonio) => {
             eachDemonio.drawDemonio()
+        })
+        this.bigDemonioArr.forEach((eachBigDemonio) => {
+            eachBigDemonio.drawBigDemonio()
         })
         this.disparoArr.forEach((eachDisparo) => {
             eachDisparo.drawDisparo()

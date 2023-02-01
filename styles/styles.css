@@ -1,6 +1,6 @@
 @font-face {
   font-family: "shangai";
-  src:url("../fonts/shangai.ttf") format("truetype")
+  src:url("./fonts/shangai.ttf") format("truetype")
 }
 
 body {

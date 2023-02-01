@@ -52,7 +52,7 @@ class LuckyCat {
         
         this.x = xPos;
         this.y = canvas.height;
-        this.w = 80;
+        this.w = 60;
         this.h = 80;
         this.speed = 4;
 
