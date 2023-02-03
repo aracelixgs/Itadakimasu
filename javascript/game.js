@@ -10,10 +10,7 @@ class Game {
         this.background.src = "./images/japofondo.png"
         this.backgroundArr = [];
 
-
         this.sumo = new Sumo()
-
-        
 
         this.disparoArr = [];
         this.puedeDisparar = true;
@@ -27,7 +24,6 @@ class Game {
         this.demonio = new Demonio()
         this.demonioArr = [];
         this.demonioVerdeArr = [];
-
 
         this.bigDemonio = new BigDemonio()
         this.bigDemonioArr = [];
@@ -51,7 +47,6 @@ class Game {
         this.soundLive = new Audio("./sounds/live.mp3")
         this.soundLive.volume = 0.1
 
-        
 
         // --------- OTHER ---------- //
 
@@ -63,8 +58,6 @@ class Game {
         this.frames = 1;
 
         this.gameTime = 0;
-       
-
     
     }
 
@@ -149,7 +142,7 @@ class Game {
         }
     }
     demonioNaranjaAparece = () => {
-        if(this.demonioArr.length === 0 || this.frames % 220 === 0) {
+        if(this.demonioArr.length === 0 || this.frames % 320 === 0) {
             let randomPosY = Math.random() * (canvas.height-this.demonio.h)
             let randomDemonio = new Demonio(randomPosY, "./images/demonionaranja.png", 8)
             this.demonioArr.push(randomDemonio)
@@ -297,13 +290,13 @@ class Game {
     // DIBUJADO DE ELEMENTOS ADICIONALES Y LIMPIEZA CANVAS
 
     drawScore = () => {
-        ctx.font = "30px shangai";
-        ctx.fillText('Score: ' + this.score, 50, 50)
+        ctx.font = "20px shangai";
+        ctx.fillText('Score: ' + this.score, 20, 30)
         ctx.fillStyle = "#000000"
     }
     drawLives = () => {
-        ctx.font = "30px shangai";
-        ctx.fillText('Lives: ' + this.lives, 50, 100)
+        ctx.font = "20px shangai";
+        ctx.fillText('Lives: ' + this.lives, 20, 60)
         ctx.fillStyle = "#000000"
     } 
     drawBackground = ()  => {
@@ -334,8 +327,9 @@ class Game {
             this.demonioVerdeAparece()
             this.soundGame.playbackRate = 1.2;
         }
-        else if(this.score >=100 && this.score<150) {
+        else if(this.score >=100 && this.score<500) {
             this.demonioNaranjaAparece()
+            this.demonioVerdeAparece()
             this.soundGame.playbackRate = 1.5;
         }
     }

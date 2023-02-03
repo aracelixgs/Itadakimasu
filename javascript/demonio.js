@@ -10,6 +10,8 @@ class Demonio {
         this.image = new Image()
         this.image.src = demonioImage;
         this.isDemonioDead = false;
+        this.directionX = 1;
+        this.directionY = 1;
     }
     
     drawDemonio = () => {
@@ -19,9 +21,9 @@ class Demonio {
     moveDemonio = () => {
         this.x -=this.speed
     }
-    }
+
+}
   
-    
 
     class BigDemonio {
 
