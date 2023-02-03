@@ -22,17 +22,30 @@ body {
 
   .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 50px;
   }
 
-  #start-btn, #restart-btn {
+  #instructions {
+    background-color: rgb(57, 56, 73);
+    color: whitesmoke;
+    padding: 20px;
+    font-size: 20px;
+    font-family: "san serif";
+    margin-top: 40px;
+  }
+  #titulo {
+    font-size: 30px;
+    font-family: "shangai";
+  }
+  #start-btn, #restart-btn, #gohome-btn {
 
     background-color: rgb(179, 0, 0);
     color: whitesmoke;
     padding: 20px;
-    font-size: 40px;
+    font-size: 20px;
     font-family: "shangai";
     margin-top: 40px;
     border-radius: 10px; 

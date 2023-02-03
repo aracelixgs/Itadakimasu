@@ -4,12 +4,12 @@ constructor() {
 
     this.x = 200;
     this.y = 200;
-    this.w = 140;
-    this.h = 180;
+    this.w = 100;
+    this.h = 130;
     this.speed = 20;
     this.image = new Image()
     this.image.src = "./images/sumo.png"
-
+    
 }
 drawSumo = () => {
     ctx.drawImage(this.image, this.x, this.y, this.w, this.h)
@@ -66,8 +66,8 @@ class Disparo {
 
         this.x = x;
         this.y = y;
-        this.w = 20;
-        this.h = 20;
+        this.w = 40;
+        this.h = 40;
         this.speed = 20;
         this.image = new Image()
         this.image.src = "./images/disparo.png"

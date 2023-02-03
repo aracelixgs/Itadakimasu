@@ -1,14 +1,14 @@
 class Demonio {
 
-    constructor(yPos) {
+    constructor(yPos, demonioImage, speed) {
     
         this.x = canvas.width;
         this.y = yPos;
-        this.w = 80;
-        this.h = 80;
-        this.speed = 4;
+        this.w = 60;
+        this.h = 60;
+        this.speed = speed;
         this.image = new Image()
-        this.image.src = "./images/demonio.png"
+        this.image.src = demonioImage;
         this.isDemonioDead = false;
     }
     
@@ -18,13 +18,7 @@ class Demonio {
     
     moveDemonio = () => {
         this.x -=this.speed
-        // Enemy move in the Y axis
-       // if ( this.y < sumo.y ) {
-        //  this.y = this.y + this.speed;
-       // } else if ( this.y > sumo.y ) {
-      //    this.y = this.y - this.speed;
-      //  }
-    };
+    }
     }
   
     
@@ -35,9 +29,9 @@ class Demonio {
     
             this.x = canvas.width;
             this.y = yPos;
-            this.w = 120;
-            this.h = 120;
-            this.speed = 1;
+            this.w = 100;
+            this.h = 100;
+            this.speed = 1.5;
             this.image = new Image()
             this.image.src = "./images/demonio.png"
             this.live = 3;

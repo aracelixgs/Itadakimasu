@@ -13,6 +13,8 @@ class Game {
 
         this.sumo = new Sumo()
 
+        
+
         this.disparoArr = [];
         this.puedeDisparar = true;
 
@@ -24,6 +26,8 @@ class Game {
 
         this.demonio = new Demonio()
         this.demonioArr = [];
+        this.demonioVerdeArr = [];
+
 
         this.bigDemonio = new BigDemonio()
         this.bigDemonioArr = [];
@@ -35,6 +39,7 @@ class Game {
 
         this.soundGame = new Audio("./sounds/kotojuego.mp3")
         this.soundGame.volume = 0.05
+        this.soundGame.playbackRate = 1
         this.soundGameOver = new Audio("./sounds/gong.mp3")
         this.soundGameOver.volume = 0.1
         this.soundPoint = new Audio("./sounds/point.mp3")
@@ -56,6 +61,10 @@ class Game {
         this.lives = 3;
 
         this.frames = 1;
+
+        this.gameTime = 0;
+       
+
     
     }
 
@@ -64,31 +73,46 @@ class Game {
     // AÑADIR ELEMENTOS
 
     foodAparece = ()=>{
-        if(this.sushiArr.length === 0 || this.frames % 120 === 0) {
-            let randomPosXSushi = Math.random() * (canvas.width-100)
-            let randomSushi = new Sushi(randomPosXSushi)
+        if(this.sushiArr.length === 0 || this.frames % 300 === 0) {
+            let randomPosX = Math.random() * (canvas.width-100)
+            let randomPosY = Math.random() * (-500)
+            let randomSushi = new Sushi(randomPosX, randomPosY, "./images/sushi.png")
             this.sushiArr.push(randomSushi)
         }
+        if(this.sushiArr.length === 0 || this.frames % 300 === 0) {
+            let randomPosX = Math.random() * (canvas.width-100)
+            let randomPosY = Math.random() * (-500)
+            let randomSushi = new Sushi(randomPosX,  randomPosY, "./images/nigiri.png")
+            this.sushiArr.push(randomSushi)
+        }
+        if(this.sushiArr.length === 0 || this.frames % 300 === 0) {
+            let randomPosX = Math.random() * (canvas.width-100)
+            let randomPosY = Math.random() * (-500)
+            let randomSushi = new Sushi(randomPosX,  randomPosY, "./images/uramaki.png")
+            this.sushiArr.push(randomSushi)
+        }
+        
         if(this.ramenArr.length === 0 || this.frames % 320 === 0) {
             let randomPosXRamen = Math.random() * (canvas.width-100)
             let randomRamen = new Ramen(randomPosXRamen)
             this.ramenArr.push(randomRamen)
         }
     }
-    demonioAparece = ()=>{
+    demonioAparece = ()=> {
         if(this.demonioArr.length === 0 || this.frames % 320 === 0) {
             let randomPosY = Math.random() * (canvas.height-this.demonio.h)
-            let randomDemonio = new Demonio(randomPosY)
+            let randomDemonio = new Demonio(randomPosY, "./images/demonio.png", 4)
             this.demonioArr.push(randomDemonio)
-
         }
     }
     bigDemonioAparece = ()=>{
+        if(this.score >= 40) {
         if(this.bigDemonioArr.length === 0 || this.frames % 600 === 0) {
             let randomPosY = Math.random() * (canvas.height-this.bigDemonio.h)
             let randomBigDemonio = new BigDemonio(randomPosY)
             this.bigDemonioArr.push(randomBigDemonio)
         }
+    }
     }
     disparoSumo = () => {
         if(this.puedeDisparar){
@@ -97,7 +121,7 @@ class Game {
             this.puedeDisparar = false;
             setTimeout(()=>{
                 this.puedeDisparar = true;
-            },500);
+            },200);
             setTimeout(() =>{
                 this.sumo.image.src = "./images/sumo.png"
             },100)
@@ -106,11 +130,30 @@ class Game {
         this.sumo.image.src = "./images/sumodisparo.png"
     }
     luckyCatAparece = () => {
-        if(this.luckyCatArr.length === 0 || this.frames % 950 === 0) {
-            let randomPosXluckyCat = Math.random() * (canvas.width-100)
-            let randomluckyCat = new LuckyCat(randomPosXluckyCat)
-            this.luckyCatArr.push(randomluckyCat)
-            }
+           if(this.luckyCatArr.length === 0 && this.luckyCat.canLuckyCatAppear === true) {
+               let randomPosXluckyCat = Math.random() * (canvas.width-100)
+               let randomPosYluckyCat = Math.random() * (canvas.height-100)
+               let randomluckyCat = new LuckyCat(randomPosXluckyCat, randomPosYluckyCat)
+               this.luckyCatArr.push(randomluckyCat)
+               this.luckyCat.canLuckyCatAppear = false;
+               setTimeout(() => {
+                   this.luckyCatArr.shift();
+                 }, 6000);
+               } 
+    }
+    demonioVerdeAparece = () => {
+        if(this.demonioArr.length === 0 || this.frames % 220 === 0) {
+            let randomPosY = Math.random() * (canvas.height-this.demonio.h)
+            let randomDemonio = new Demonio(randomPosY, "./images/demonioverde.png", 6)
+            this.demonioArr.push(randomDemonio)
+        }
+    }
+    demonioNaranjaAparece = () => {
+        if(this.demonioArr.length === 0 || this.frames % 220 === 0) {
+            let randomPosY = Math.random() * (canvas.height-this.demonio.h)
+            let randomDemonio = new Demonio(randomPosY, "./images/demonionaranja.png", 8)
+            this.demonioArr.push(randomDemonio)
+        }
     }
 
     // ELIMINACIÓN DE ELEMENTOS
@@ -138,7 +181,7 @@ class Game {
             eachDemonio.h + eachDemonio.y > this.sumo.y
           ) {
             this.demonioArr.splice(index, 1)
-            this.score -=20
+            this.lives -=1
             this.soundSumoDemonio.play()
          }
           })
@@ -251,8 +294,6 @@ class Game {
           })
     }
 
-    // AUMENTO DE VELOCIDAD
-
     // DIBUJADO DE ELEMENTOS ADICIONALES Y LIMPIEZA CANVAS
 
     drawScore = () => {
@@ -279,15 +320,27 @@ class Game {
         gameoverScreenDOM.style.display = "flex";
     }
     scoreAndLife = () => {
-        if(this.score < 0) {
-            this.lives -=1;
-            this.score = 0;
-        }
-        if(this.lives < 0) {
+
+        if(this.lives < 1) {
             this.gameOver()
         }
-    }  
+    } 
     
+    // CONTROL VELOCIDAD MÚSICA
+
+    levelSpeed = () => {
+        
+        if(this.score >=50 && this.score < 100) {
+            this.demonioVerdeAparece()
+            this.soundGame.playbackRate = 1.2;
+        }
+        else if(this.score >=100 && this.score<150) {
+            this.demonioNaranjaAparece()
+            this.soundGame.playbackRate = 1.5;
+        }
+    }
+
+ 
    
 
 
@@ -297,6 +350,8 @@ class Game {
         this.frames++
         this.soundGame.play()
         this.scoreAndLife()
+
+        this.levelSpeed()
 
         // LIMPAR CANVAS
         this.clearCanvas()
@@ -334,9 +389,6 @@ class Game {
 
         // ------- Lucky Cat --------- //
         this.luckyCatAparece()
-        this.luckyCatArr.forEach((eachCat) => {
-            eachCat.moveLuckyCat()
-        })
         
         // COLISIONES
         this.colisionSumoDemonio()
@@ -374,8 +426,6 @@ class Game {
         })
 
 
-
-
         // 4. recursión y control
         if(this.isGameOn === true){
         requestAnimationFrame(this.gameLoop)
@@ -384,3 +434,4 @@ class Game {
 
     }
 }
+

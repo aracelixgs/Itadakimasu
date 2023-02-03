@@ -11,10 +11,33 @@
     
 <!-- START GAME -->
 <div id="start-screen" class="container">
-    <img src="./images/Start Game.png" width="800" alt="logo">
+    <img src="./images/Start Game.png" width="600" alt="logo">
     <button id="start-btn">Start Game!</button>
     <div id="instructions" class="container">
-      <p> Añadir instrucciones del juego</p>
+      <h2 id="titulo">INSTRUCCIONES DEL JUEGO</h2>
+      <p>¡Come todo lo que puedas para conseguir puntos! Pero cuidado con los Onis, ¡intentarán ponértelo difícil y restarte vidas! Podrás dispararles para deshacerte de ellos usando la tecla "Space".
+        ¡Ten especial cuidado con los Onis gigantes! Si los dejas escapar te quitarán una vida, además son más difíciles de eliminar.
+        Puedes moverte en todas direcciones, ¡incluso en diagonal!:
+        <ul>
+          <li>Pulsa "W" u "8" para ir hacia arriba</li> 
+          <li>Pulsa "S" o "2" para ir hacia abajo</li> 
+          <li>Pulsa "A" o "4" para ir hacia la izquierda</li> 
+          <li>Pulsa "D" o "6" para ir hacia la derecha</li>
+          <li>Pulsa "Q" o "7" para ir en diagonal arriba a la izquierda</li>
+          <li>Pulsa "E" o "9" para ir en diagonal arriba a la derecha</li>
+          <li>Pulsa "Z" o "1" para ir en diagonal abajo a la izquierda</li>
+          <li>Pulsa "X" o "3" para ir en diagonal abajo a la derecha</li>
+        </ul>
+        Sistema de puntuación:
+        <ul>
+          <li>Los ramen suman 10 puntos.</li> 
+          <li>Las piezas de sushi suman 5 puntos</li> 
+          <li>Pulsa "A" o "4" para ir hacia la izquierda</li> 
+          <li>Pulsa "D" o "6" para ir hacia la derecha</li>
+          <li>Pulsa "Q" o "7" para ir en diagonal arriba a la izquierda</li>
+          <li>Pulsa "E" o "9" para ir en diagonal arriba a la derecha</li>
+
+      </p>
     </div>
 
   </div>
@@ -22,13 +45,14 @@
 
 <!-- GAME SCREEN -->
 <div class="main-container">
-    <canvas id="my-canvas" width="1200" height="800"></canvas>
+    <canvas id="my-canvas" width="900" height="600"></canvas>
 </div>
 
 <!-- GAME OVER -->
 <div id="gameover-screen" class="container">
     <img src="./images/game-over.jpg" width="500" alt="logo">
     <button id="restart-btn">Play Again!</button>
+    <button id="gohome-btn">Go Home!</button>
   </div>
 
 
@@ -37,6 +61,7 @@
 <script src = "./javascript/sumo.js"></script>
 <script src = "./javascript/sushi.js"></script>
 <script src = "./javascript/demonio.js"></script>
+<script src = "./javascript/luckycat.js"></script>
 
 </body>
 </html>
