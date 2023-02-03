@@ -234,8 +234,8 @@ class Game {
               ) {
                 this.demonioArr.splice(indexDemonio, 1)
                 eachDisparo.image.src = "./images/humo.png"
-                eachDisparo.w = 120;
-                eachDisparo.h = 120;
+                eachDisparo.w = 80;
+                eachDisparo.h = 80;
                 this.soundDemonioDisparo.play() 
              }
               

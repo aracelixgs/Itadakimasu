@@ -66,8 +66,8 @@ class Disparo {
 
         this.x = x;
         this.y = y;
-        this.w = 40;
-        this.h = 40;
+        this.w = 20;
+        this.h = 20;
         this.speed = 20;
         this.image = new Image()
         this.image.src = "./images/disparo.png"
